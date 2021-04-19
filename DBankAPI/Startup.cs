@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using DBankAPI.Data;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;      
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NetDevPack.Identity;
@@ -18,6 +18,12 @@ using NetDevPack.Identity.Jwt;
 using NetDevPack.Identity.User;
 using DBankAPI.DBankInfra.Data.Repository;
 using DBankAPI.DBankDomain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using MediatR;
+using DBankAPI.Interfaces;
+using DBankAPI.Services;
+using DBankAPI.DBankApplication.AutoMapper;
 
 namespace DBankAPI
 {
@@ -27,9 +33,6 @@ namespace DBankAPI
 
         public Startup(IHostEnvironment env)
         {
-            //Configuration = configuration;
-
-
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json", true, true)
@@ -47,33 +50,31 @@ namespace DBankAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>();
+            // WebAPI Config
+            services.AddControllers();
 
-            //services.AddIdentity<IdentityUser, IdentityRole>()
-            //    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-
-
+            // Setting DBContexts
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
 
             // ASP.NET Identity Settings & JWT
             // Default EF Context for Identity (inside of the NetDevPack.Identity)
             services.AddIdentityEntityFrameworkContextConfiguration(options =>
-                options.UseSqlite("DataSource=app.db"));
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
             // Default Identity configuration from NetDevPack.Identity
             services.AddIdentityConfiguration();
 
             // Default JWT configuration from NetDevPack.Identity
             services.AddJwtConfiguration(Configuration, "AppSettings");
-            ///////////
 
             // Interactive AspNetUser (logged in)
             // NetDevPack.Identity dependency
             services.AddAspNetUserConfiguration();
 
             // AutoMapper Settings
-            //services.AddAutoMapper(typeof(DomainToViewModelMappingProfile), typeof(ViewModelToDomainMappingProfile));
+            services.AddAutoMapper(typeof(DomainToViewModelMappingProfile));
 
             // Swagger Config
             services.AddSwaggerGen(s =>
@@ -81,9 +82,9 @@ namespace DBankAPI
                 s.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "Projeto DBank",
-                    Description = "Desafio prático DBSP",
-                    Contact = new OpenApiContact { Name = "Uiliam Goltz", Email = "uiliamge@gmail.com" }
+                    Title = "Desafio DBSP 2021",
+                    Description = "",
+                    Contact = new OpenApiContact { Name = "Uiliam Goltz" }
                 });
 
                 s.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
@@ -113,13 +114,16 @@ namespace DBankAPI
 
             });
 
+            // Adding MediatR for Domain Events and Notifications
+            services.AddMediatR(typeof(Startup));
 
-            // Infra - Data
-            services.AddScoped<ILancamentoRepository, LancamentoRepository>();
-            services.AddScoped<ApplicationDbContext>();
-
-            services.AddControllers();
             
+            services.AddScoped<ApplicationDbContext>();
+            services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
+            services.AddScoped<ILancamentoRepository, LancamentoRepository>();
+            services.AddScoped<IContaCorrenteService, ContaCorrenteService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -128,19 +132,35 @@ namespace DBankAPI
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "DBank v1"));
             }
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseRouting();
-
             app.UseAuthorization();
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+
+
+            app.UseCors(c =>
+            {
+                c.AllowAnyHeader();
+                c.AllowAnyMethod();
+                c.AllowAnyOrigin();
+            });
+
+            // NetDevPack.Identity dependency
+            app.UseAuthConfiguration();
+
+            if (app == null) throw new ArgumentNullException(nameof(app));
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
             });
         }
     }

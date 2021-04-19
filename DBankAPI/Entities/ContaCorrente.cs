@@ -21,18 +21,7 @@ namespace DBankAPI.Entities
         [Required]
         public int Numero { get; set; }
 
-        [Required]
-        public char Digito { get; set; }
-
         public ICollection<Lancamento> Lancamentos { get; set; }
 
-        /// <summary>
-        /// Retorna {Numero}-{Digito} 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return $"{Numero}-{Digito}";
-        }
     }
 }

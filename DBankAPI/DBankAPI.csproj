@@ -5,6 +5,7 @@
     <UserSecretsId>aspnet-DBankAPI-1247EE70-C67B-4A67-96AB-F8AFD06C0F19</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'SecuringWebApiUsingJwtAuthentication' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
@@ -15,6 +16,8 @@
     <PackageReference Include="NetDevPack.Identity" Version="1.2.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="NetDevPack" Version="1.1.1" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,5 +34,7 @@
     <Folder Include="DBankInfra\Data\Repository\" />
     <Folder Include="DBankDomain\Commands\Validations\" />
     <Folder Include="Data\Migrations\" />
+    <Folder Include="DBankApplication\" />
+    <Folder Include="DBankApplication\AutoMapper\" />
   </ItemGroup>
 </Project>

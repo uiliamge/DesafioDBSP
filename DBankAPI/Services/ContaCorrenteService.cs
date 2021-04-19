@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
-using DBankAPI.DBankDomain.Commands;
 using DBankAPI.DBankDomain.Interfaces;
 using DBankAPI.Entities;
 using DBankAPI.Interfaces;
 using DBankAPI.ViewModels;
-using FluentValidation.Results;
-using NetDevPack.Mediator;
 
 namespace DBankAPI.Services
 {
@@ -16,20 +13,27 @@ namespace DBankAPI.Services
     {
         private readonly IMapper _mapper;
         private readonly ILancamentoRepository _lancamentoRepository;
-        private readonly IMediatorHandler _mediator;
-
-        public ContaCorrenteService(IMapper mapper, ILancamentoRepository lancamentoRepository, IMediatorHandler mediator)
+        private readonly IContaCorrenteRepository _contaCorrenteRepository;
+        
+        public ContaCorrenteService(IMapper mapper, ILancamentoRepository lancamentoRepository, IContaCorrenteRepository contaCorrenteRepository)
         {
             _mapper = mapper;
             _lancamentoRepository = lancamentoRepository;
+            _contaCorrenteRepository = contaCorrenteRepository;
         }
 
         public RetornoViewModel EnviarDinheiro(LancamentoViewModel lancamentoViewModel)
         {
             try
             {
+                var contaOrigem = _contaCorrenteRepository.GetByNumero(lancamentoViewModel.ContaCorrenteOrigem);
+                var contaDestino = _contaCorrenteRepository.GetByNumero(lancamentoViewModel.ContaCorrenteDestino);
+
                 var lancamento = _mapper.Map<Lancamento>(lancamentoViewModel);
-                _lancamentoRepository.EnviarDinheiro(lancamentoViewModel.ContaCorrenteOrigemId, lancamento);
+                lancamento.DataHora = DateTime.Now;
+                lancamento.ContaCorrenteId = contaDestino.Id;
+
+                _lancamentoRepository.EnviarDinheiro(contaOrigem.Id, lancamento);
 
                 return new RetornoViewModel
                 {

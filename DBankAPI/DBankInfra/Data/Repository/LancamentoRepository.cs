@@ -24,6 +24,8 @@ namespace DBankAPI.DBankInfra.Data.Repository
 
         public void EnviarDinheiro(int contaOrigemId, Lancamento lancamento)
         {
+            var contaDestino = _context.ContasCorrentes.Find(lancamento.ContaCorrenteId);
+
             //Debita minha conta
             Add(new Lancamento
             {
@@ -31,7 +33,7 @@ namespace DBankAPI.DBankInfra.Data.Repository
                 ContaCorrenteId = contaOrigemId,
                 DataHora = lancamento.DataHora,
                 Valor = lancamento.Valor,
-                Observacao = $"{lancamento.Observacao} (Referente à crédito na conta {lancamento.ContaCorrente.ToString()})"
+                Observacao = $"{lancamento.Observacao} (Referente à crédito na conta {contaDestino.Numero})"
             });
 
             //Credita no destino
@@ -54,6 +56,7 @@ namespace DBankAPI.DBankInfra.Data.Repository
 
         public void Dispose()
         {
+            _context.SaveChanges();
             _context.Dispose();
         }
     }

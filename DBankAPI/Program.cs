@@ -17,7 +17,12 @@ namespace DBankAPI
         // EF Core uses this method at design time to access the DbContext
         public static IHostBuilder CreateHostBuilder(string[] args)
             => Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(
+            .ConfigureLogging(logging =>
+            {
+                logging.ClearProviders();
+                logging.AddConsole();
+            })
+            .ConfigureWebHostDefaults(
                     webBuilder => webBuilder.UseStartup<Startup>());
     }
 }

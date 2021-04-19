@@ -22,9 +22,6 @@ namespace DBankAPI.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<char>("Digito")
-                        .HasColumnType("TEXT");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("TEXT");
@@ -40,15 +37,13 @@ namespace DBankAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Digito = '8',
-                            Email = "origem@gmail.com",
+                            Email = "origem@dbsp.pro",
                             Numero = 20232
                         },
                         new
                         {
                             Id = 2,
-                            Digito = 'x',
-                            Email = "destino@gmail.com",
+                            Email = "destino@dbsp.pro",
                             Numero = 12345
                         });
                 });
@@ -106,6 +101,22 @@ namespace DBankAPI.Data.Migrations
                         .HasDatabaseName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "fab4fac1-c546-41de-aebc-a14da6895711",
+                            ConcurrencyStamp = "1",
+                            Name = "Admin",
+                            NormalizedName = "Admin"
+                        },
+                        new
+                        {
+                            Id = "c7b013f0-5201-4317-abd8-c211f91b7330",
+                            ConcurrencyStamp = "2",
+                            Name = "Clientes",
+                            NormalizedName = "Clientes"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -197,31 +208,51 @@ namespace DBankAPI.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
+                            Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "618144db-1baa-4a91-b98d-f255d3b767fa",
-                            Email = "origem@gmail.com",
+                            ConcurrencyStamp = "7e0a3cd8-0c11-4bcd-a387-0a4c73b46933",
+                            Email = "uiliamge@gmail.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPJMEJNuFrLplvFNKYi1D4zGVIQDJFUdnLEshTONU+dt6+cbM28Vj+2MbagjwE5KIA==",
+                            NormalizedEmail = "UILIAMGE@GMAIL.COM",
+                            NormalizedUserName = "UILIAMGE@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEHbsy9eJ9jDpkrfh9b2HgK6KGnFONk2DfCCyf9lRDWWKTv1lBXcf9rEilnjAOJ7s4Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "879325b4-3989-4d66-9d85-99f740057926",
+                            SecurityStamp = "fb6313b0-4854-48d9-a775-5e8afb4fe44d",
                             TwoFactorEnabled = false,
-                            UserName = "origem@gmail.com"
+                            UserName = "uiliamge@gmail.com"
+                        },
+                        new
+                        {
+                            Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "a47c8099-4e2d-437f-9f53-75fcc6847de0",
+                            Email = "origem@dbsp.pro",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ORIGEM@DBSP.PRO",
+                            NormalizedUserName = "ORIGEM@DBSP.PRO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK4eqekW1IwD01bx3RH+xepHJluj1FWkCg6cMow0K3axVLJg+C+YV8qJvCKvl89O6g==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "34cf8cf9-51c9-4dff-9266-738ad665a8f2",
+                            TwoFactorEnabled = false,
+                            UserName = "origem@dbsp.pro"
                         },
                         new
                         {
                             Id = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "df7c6560-00f1-47b8-b513-31d62d01ee9d",
-                            Email = "destino@gmail.com",
+                            ConcurrencyStamp = "647cb4f0-812f-4689-a33a-8fd304eac3f6",
+                            Email = "destino@dbsp.pro",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
-                            PasswordHash = "AQAAAAEAACcQAAAAEPhx5xOb17pHs3MZniaryC+vJp+3zzjKrNeKEOADVZZwf9bAtZurkzj0SVr+ObOPPg==",
+                            NormalizedEmail = "DESTINO@DBSP.PRO",
+                            NormalizedUserName = "DESTINO@DBSP.PRO",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGk+jZgFZ7jwIy/Hvl7eveAyKw5kg8Dsf9bi03Hhz3hhPOJVQ8dK4yZc6TlLtT8eyQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "31954985-cdfe-4d62-8ad5-0091254e83fa",
+                            SecurityStamp = "5df36695-d809-4caf-a684-5e26d8863bc4",
                             TwoFactorEnabled = false,
-                            UserName = "destino@gmail.com"
+                            UserName = "destino@dbsp.pro"
                         });
                 });
 
@@ -285,6 +316,23 @@ namespace DBankAPI.Data.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "b74ddd14-6340-4840-95c2-db12554843e5",
+                            RoleId = "fab4fac1-c546-41de-aebc-a14da6895711"
+                        },
+                        new
+                        {
+                            UserId = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
+                            RoleId = "c7b013f0-5201-4317-abd8-c211f91b7330"
+                        },
+                        new
+                        {
+                            UserId = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd",
+                            RoleId = "c7b013f0-5201-4317-abd8-c211f91b7330"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>

@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 using DBankAPI.Controllers;
 using DBankAPI.Interfaces;
 using DBankAPI.ViewModels;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DBank.Controllers
 {
-    [Authorize]
+    //[Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
+    //[Authorize(Roles = "Clientes")]
     public class ContasCorrentesController : ApiController
     {
         private readonly IContaCorrenteService _contaCorrenteService;
@@ -19,8 +19,9 @@ namespace DBank.Controllers
         }
 
         [HttpPost("EnviarDinheiro")]
-        public IActionResult EnviarDinheiro([FromBody] LancamentoViewModel lancamentoViewModel)
+        public IActionResult EnviarDinheiro(LancamentoViewModel lancamentoViewModel)
         {
+            
             return !ModelState.IsValid
                 ? CustomResponse(ModelState)
                 : CustomResponse(_contaCorrenteService.EnviarDinheiro(lancamentoViewModel));
