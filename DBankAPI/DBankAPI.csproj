@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+    <UserSecretsId>aspnet-DBankAPI-1247EE70-C67B-4A67-96AB-F8AFD06C0F19</UserSecretsId>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="5.0.5" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.5" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.2" />
+    <PackageReference Include="NetDevPack.Identity" Version="1.2.0" />
+    <PackageReference Include="AutoMapper" Version="10.1.1" />
+    <PackageReference Include="NetDevPack" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
+    <Folder Include="Enums\" />
+    <Folder Include="ViewModels\" />
+    <Folder Include="Services\" />
+    <Folder Include="DBankDomain\" />
+    <Folder Include="DBankDomain\Commands\" />
+    <Folder Include="DBankDomain\Interfaces\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="DBankInfra\" />
+    <Folder Include="DBankInfra\Data\" />
+    <Folder Include="DBankInfra\Data\Repository\" />
+    <Folder Include="DBankDomain\Commands\Validations\" />
+    <Folder Include="Data\Migrations\" />
+  </ItemGroup>
+</Project>
