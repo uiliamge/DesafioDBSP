@@ -18,6 +18,7 @@
     <PackageReference Include="NetDevPack" Version="1.1.1" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Microsoft.Identity.Web" Version="1.9.1" />
   </ItemGroup>
 
   <ItemGroup>

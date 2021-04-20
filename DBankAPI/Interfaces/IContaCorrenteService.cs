@@ -8,7 +8,7 @@ namespace DBankAPI.Interfaces
 {
     public interface IContaCorrenteService : IDisposable
     {
-        bool ContaPertenceAoUsuario(string userName, int numeroContaCorrente);
+        bool ContaPertenceAoUsuario(string userId, int numeroContaCorrente);
         RetornoViewModel EnviarDinheiro(LancamentoViewModel lancamentoViewModel);
         Task<List<ExtratoViewModel>> GetExtrato(int numeroContaCorrente);
     }

@@ -18,8 +18,7 @@ namespace DBankAPI.Data
         public DbSet<ContaCorrente> ContasCorrentes { get; set; }
         public DbSet<Lancamento> Lancamentos { get; set; }
 
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite("DataSource=app.db");
+        protected override void OnConfiguring(DbContextOptionsBuilder options) => options.UseSqlite("DataSource=app.db");
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -27,26 +26,17 @@ namespace DBankAPI.Data
 
             modelBuilder.Entity<ContaCorrente>().HasKey(p => new { p.Id });
             modelBuilder.Entity<Lancamento>().HasKey(p => new { p.Id });
-
-            //pega as configuracoes das classes que estao com o DbSet   
+            
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
 
-            SeedUsers(modelBuilder);
+            SeedUsersEContasCorrentes(modelBuilder);
             SeedRoles(modelBuilder);
             SeedUserRoles(modelBuilder);
-            SeedContasCorrentes(modelBuilder);
         }
 
-        private void SeedContasCorrentes(ModelBuilder builder)
-        {
-            builder.Entity<ContaCorrente>().HasData(
-                   new ContaCorrente { Id = 1, UserName = "origem@dbsp.pro", Numero = 20232  },
-                   new ContaCorrente { Id = 2, UserName = "destino@dbsp.pro", Numero = 12345 }
-               );
+        #region Seeds
 
-        }
-
-        private void SeedUsers(ModelBuilder builder)
+        private void SeedUsersEContasCorrentes(ModelBuilder builder)
         {            
             //Seed usuário Admin
             IdentityUser user = new IdentityUser()
@@ -78,6 +68,10 @@ namespace DBankAPI.Data
             user.PasswordHash = phOrigem.HashPassword(user, "DbSP2021*");
             builder.Entity<IdentityUser>().HasData(user);
 
+            //Conta corrente do usuário Origem
+            builder.Entity<ContaCorrente>().HasData(new ContaCorrente { Id = 1, UserId = user.Id, Numero = 123123 });
+
+
             //Seed Usuário Destino
 
             user = new IdentityUser
@@ -93,6 +87,9 @@ namespace DBankAPI.Data
             PasswordHasher<IdentityUser> phDestino = new PasswordHasher<IdentityUser>();
             user.PasswordHash = phDestino.HashPassword(user, "DbSP2021*");
             builder.Entity<IdentityUser>().HasData(user);
+
+            //Conta corrente do usuário destino
+            builder.Entity<ContaCorrente>().HasData(new ContaCorrente { Id = 2, UserId = user.Id, Numero = 12345 });
         }
 
         private void SeedRoles(ModelBuilder builder)
@@ -111,6 +108,8 @@ namespace DBankAPI.Data
                 new IdentityUserRole<string>() { RoleId = "c7b013f0-5201-4317-abd8-c211f91b7330", UserId = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd" }
                 );
         }
+
+        #endregion
     }
 }
 

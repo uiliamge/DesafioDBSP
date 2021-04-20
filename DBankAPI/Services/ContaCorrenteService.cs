@@ -22,10 +22,10 @@ namespace DBankAPI.Services
             _contaCorrenteRepository = contaCorrenteRepository;
         }
 
-        public bool ContaPertenceAoUsuario(string userName, int numeroContaCorrente)
+        public bool ContaPertenceAoUsuario(string userId, int numeroContaCorrente)
         {
             var contaCorrente = _contaCorrenteRepository.GetByNumero(numeroContaCorrente);
-            return (contaCorrente.UserName == userName);
+            return (contaCorrente.UserId == userId);
         }
 
         public RetornoViewModel EnviarDinheiro(LancamentoViewModel lancamentoViewModel)

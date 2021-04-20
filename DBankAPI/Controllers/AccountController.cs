@@ -1,9 +1,11 @@
 ﻿
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using NetDevPack.Identity.Jwt;
+using NetDevPack.Identity.Jwt.Model;
 using NetDevPack.Identity.Model;
 
 
@@ -42,6 +44,8 @@ namespace DBankAPI.Controllers
 
             var result = await _userManager.CreateAsync(user, registerUser.Password);
 
+            await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Name, user.UserName));
+
             if (result.Succeeded)
             {
                 return CustomResponse(GetFullJwt(user.Email));
@@ -58,7 +62,7 @@ namespace DBankAPI.Controllers
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(LoginUser loginUser)
-        {
+        {                                
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
             var result = await _signInManager.PasswordSignInAsync(loginUser.Email, loginUser.Password, false, true);
@@ -71,17 +75,17 @@ namespace DBankAPI.Controllers
 
             if (result.IsLockedOut)
             {
-                AddError("This user is temporarily blocked");
+                AddError("Usuário bloqueado");
                 return CustomResponse();
             }
 
-            AddError("Incorrect user or password");
+            AddError("Usuário ou senha incorretos");
             return CustomResponse();
         }
-
+        
         private string GetFullJwt(string email)
         {
-                var fullJwt = new JwtBuilder()
+            return new JwtBuilder()
                 .WithUserManager(_userManager)
                 .WithJwtSettings(_appJwtSettings)
                 .WithEmail(email)
@@ -89,8 +93,6 @@ namespace DBankAPI.Controllers
                 .WithUserClaims()
                 .WithUserRoles()
                 .BuildToken();
-
-            return fullJwt;
         }
     }
 }

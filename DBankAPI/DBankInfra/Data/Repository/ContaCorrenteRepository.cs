@@ -19,9 +19,9 @@ namespace DBankAPI.DBankInfra.Data.Repository
             return _context.ContasCorrentes.FirstOrDefault(x => x.Numero == numero);
         }
 
-        public ContaCorrente GetByUserName(string username)
+        public ContaCorrente GetByUserId(string userId)
         {
-            return _context.ContasCorrentes.FirstOrDefault(x => x.UserName == username);
+            return _context.ContasCorrentes.FirstOrDefault(x => x.UserId == userId);
         }
 
         public void Dispose()

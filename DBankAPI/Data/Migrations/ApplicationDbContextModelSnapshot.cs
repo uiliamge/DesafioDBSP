@@ -25,7 +25,7 @@ namespace DBankAPI.Data.Migrations
                     b.Property<int>("Numero")
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("UserId")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
@@ -37,14 +37,14 @@ namespace DBankAPI.Data.Migrations
                         new
                         {
                             Id = 1,
-                            Numero = 20232,
-                            UserName = "origem@dbsp.pro"
+                            Numero = 123123,
+                            UserId = "02174cf0–9412–4cfe-afbf-59f706d72cf6"
                         },
                         new
                         {
                             Id = 2,
                             Numero = 12345,
-                            UserName = "destino@dbsp.pro"
+                            UserId = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd"
                         });
                 });
 
@@ -210,15 +210,15 @@ namespace DBankAPI.Data.Migrations
                         {
                             Id = "b74ddd14-6340-4840-95c2-db12554843e5",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9a3c21a1-ef93-48c3-8bca-48364cba5c60",
+                            ConcurrencyStamp = "33b0b352-bb07-4e59-a670-db0655882ec3",
                             Email = "admin@dbsp.pro",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@DBSP.PRO",
                             NormalizedUserName = "ADMIN@DBSP.PRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF5Ycqz79PKU1QJBg7JycYcBnHO7ov2QEo203yv3WcR3pHJ98olBiBP7Xpb1VWiLtA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEBKpDawyiKCn1pKOEQnvr4i6ZeX6b7kpLc+Ni69IT0WnM6P/yPXeBeBIE+ziHhLf4A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "fcf45016-019d-454c-a813-ff5bd09e52f3",
+                            SecurityStamp = "819fa761-aa6a-45f4-91d5-694d040fa609",
                             TwoFactorEnabled = false,
                             UserName = "admin@dbsp.pro"
                         },
@@ -226,15 +226,15 @@ namespace DBankAPI.Data.Migrations
                         {
                             Id = "02174cf0–9412–4cfe-afbf-59f706d72cf6",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "9918e01a-ad1b-4fec-b31b-094032e2f4d9",
+                            ConcurrencyStamp = "e174a3cf-3594-452b-9bef-0c7b4cbde87f",
                             Email = "origem@dbsp.pro",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ORIGEM@DBSP.PRO",
                             NormalizedUserName = "ORIGEM@DBSP.PRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEKKT4+R2674NyW+hS7bEog7J/hYpevNu9P0g5RNf9YIHpLshB5X2AINNchmV5b03Qw==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENemj3SOOaRjkB4gW03mwGx/EvN/PTzkkB9uduZZal3ri+MimNlybm5mjWxcV4Qaxg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3109b817-e672-4b98-ae69-5778a6f75711",
+                            SecurityStamp = "be6d10ce-dd78-4ea7-ba30-b5e6ec5e2882",
                             TwoFactorEnabled = false,
                             UserName = "origem@dbsp.pro"
                         },
@@ -242,15 +242,15 @@ namespace DBankAPI.Data.Migrations
                         {
                             Id = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ccbdd8af-aed4-4502-a354-16b94959997b",
+                            ConcurrencyStamp = "e8bd649a-d2ac-4cda-9fcf-271f72153180",
                             Email = "destino@dbsp.pro",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "DESTINO@DBSP.PRO",
                             NormalizedUserName = "DESTINO@DBSP.PRO",
-                            PasswordHash = "AQAAAAEAACcQAAAAEF4xiJpOGLopDsoG7oGPIpy3c0bWAAdfP2DV3kpfkN3mNDF2LzumBoGYtmRGrDM0hg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAENIS9ZtQZI5vSikT2VyG0OuW2lveJqhqEXJpJkDtcsZNWiTIw2B5kzW6yJZfhFVfEQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "7572bfcc-b424-4d59-bb8e-b48a7ab4b03a",
+                            SecurityStamp = "45a65b9a-bf98-4ccc-8045-099bd91cffd0",
                             TwoFactorEnabled = false,
                             UserName = "destino@dbsp.pro"
                         });

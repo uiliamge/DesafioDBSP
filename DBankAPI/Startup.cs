@@ -1,29 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using DBankAPI.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using NetDevPack.Identity;
-using NetDevPack.Identity.Jwt;
-using NetDevPack.Identity.User;
 using DBankAPI.DBankInfra.Data.Repository;
 using DBankAPI.DBankDomain.Interfaces;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MediatR;
 using DBankAPI.Interfaces;
 using DBankAPI.Services;
 using DBankAPI.DBankApplication.AutoMapper;
+using NetDevPack.Identity;
+using NetDevPack.Identity.Jwt;
 
 namespace DBankAPI
 {
@@ -53,28 +45,17 @@ namespace DBankAPI
             // WebAPI Config
             services.AddControllers();
 
+            services.AddIdentityEntityFrameworkContextConfiguration(options =>
+                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme);
+
             // Setting DBContexts
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
 
-
-            // ASP.NET Identity Settings & JWT
-            // Default EF Context for Identity (inside of the NetDevPack.Identity)
-            services.AddIdentityEntityFrameworkContextConfiguration(options =>
-                options.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-
             // Default Identity configuration from NetDevPack.Identity
             services.AddIdentityConfiguration();
-
-            // Default JWT configuration from NetDevPack.Identity
-            services.AddJwtConfiguration(Configuration, "AppSettings");
-
-            // Interactive AspNetUser (logged in)
-            // NetDevPack.Identity dependency
-            services.AddAspNetUserConfiguration();
-
-            // AutoMapper Settings
-            services.AddAutoMapper(typeof(MappingProfile));
 
             // Swagger Config
             services.AddSwaggerGen(s =>
@@ -95,6 +76,7 @@ namespace DBankAPI
                     BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Type = SecuritySchemeType.ApiKey
+
                 });
 
                 s.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -113,16 +95,20 @@ namespace DBankAPI
                 });
 
             });
+                
+            // Default JWT configuration from NetDevPack.Identity
+            services.AddJwtConfiguration(Configuration, "AppSettings");
 
+            // AutoMapper Settings
+            services.AddAutoMapper(typeof(MappingProfile));
+          
             // Adding MediatR for Domain Events and Notifications
             services.AddMediatR(typeof(Startup));
 
-            
             services.AddScoped<ApplicationDbContext>();
             services.AddScoped<IContaCorrenteRepository, ContaCorrenteRepository>();
             services.AddScoped<ILancamentoRepository, LancamentoRepository>();
             services.AddScoped<IContaCorrenteService, ContaCorrenteService>();
-
 
         }
 
@@ -138,7 +124,7 @@ namespace DBankAPI
 
             app.UseAuthentication();
             app.UseRouting();
-            app.UseAuthorization();
+            app.UseAuthConfiguration();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
@@ -151,9 +137,6 @@ namespace DBankAPI
                 c.AllowAnyMethod();
                 c.AllowAnyOrigin();
             });
-
-            // NetDevPack.Identity dependency
-            app.UseAuthConfiguration();
 
             if (app == null) throw new ArgumentNullException(nameof(app));
 
