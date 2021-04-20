@@ -74,7 +74,7 @@ namespace DBankAPI
             services.AddAspNetUserConfiguration();
 
             // AutoMapper Settings
-            services.AddAutoMapper(typeof(DomainToViewModelMappingProfile));
+            services.AddAutoMapper(typeof(MappingProfile));
 
             // Swagger Config
             services.AddSwaggerGen(s =>

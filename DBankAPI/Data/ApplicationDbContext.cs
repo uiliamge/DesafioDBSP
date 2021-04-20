@@ -35,50 +35,13 @@ namespace DBankAPI.Data
             SeedRoles(modelBuilder);
             SeedUserRoles(modelBuilder);
             SeedContasCorrentes(modelBuilder);
-
-            //Seed Usuário Origem
-            //string UserOrigem_ID = "02174cf0–9412–4cfe-afbf-59f706d72cf6";
-
-            //var appUser = new IdentityUser
-            //{
-            //    Id = UserOrigem_ID,
-            //    Email = "origem@dbsp.pro",
-            //    EmailConfirmed = true,
-            //    UserName = "origem@dbsp.pro"
-            //};
-            //appUser.NormalizedEmail = appUser.Email.ToUpper();
-            //appUser.NormalizedUserName = appUser.UserName.ToUpper();
-
-            //PasswordHasher<IdentityUser> ph = new PasswordHasher<IdentityUser>();
-            //appUser.PasswordHash = ph.HashPassword(appUser, "DbSP2021*");
-
-            //modelBuilder.Entity<IdentityUser>().HasData(appUser);
-
-            ////Seed Usuário Destino
-            //string UserDestino_ID = "89cc6d4a-dc38-4e01-a2f5-3b64211ef3dd";
-
-            //var appUserDestino = new IdentityUser
-            //{
-            //    Id = UserDestino_ID,
-            //    Email = "destino@dbsp.pro",
-            //    EmailConfirmed = true,
-            //    UserName = "destino@dbsp.pro"
-            //};
-            //appUserDestino.NormalizedEmail = appUserDestino.Email.ToUpper();
-            //appUserDestino.NormalizedUserName = appUserDestino.UserName.ToUpper();
-
-            //PasswordHasher<IdentityUser> phDestino = new PasswordHasher<IdentityUser>();
-            //appUserDestino.PasswordHash = phDestino.HashPassword(appUserDestino, "DbSP2021*");
-
-            //modelBuilder.Entity<IdentityUser>().HasData(appUserDestino);
-
         }
 
         private void SeedContasCorrentes(ModelBuilder builder)
         {
             builder.Entity<ContaCorrente>().HasData(
-                   new ContaCorrente { Id = 1, Email = "origem@dbsp.pro", Numero = 20232  },
-                   new ContaCorrente { Id = 2, Email = "destino@dbsp.pro", Numero = 12345 }
+                   new ContaCorrente { Id = 1, UserName = "origem@dbsp.pro", Numero = 20232  },
+                   new ContaCorrente { Id = 2, UserName = "destino@dbsp.pro", Numero = 12345 }
                );
 
         }
@@ -89,8 +52,8 @@ namespace DBankAPI.Data
             IdentityUser user = new IdentityUser()
             {
                 Id = "b74ddd14-6340-4840-95c2-db12554843e5",
-                Email = "uiliamge@gmail.com",
-                UserName = "uiliamge@gmail.com",
+                Email =    "admin@dbsp.pro",
+                UserName = "admin@dbsp.pro",
                 EmailConfirmed = true,
                 LockoutEnabled = false,
             };

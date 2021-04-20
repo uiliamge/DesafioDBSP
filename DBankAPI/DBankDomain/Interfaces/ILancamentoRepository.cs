@@ -9,7 +9,7 @@ namespace DBankAPI.DBankDomain.Interfaces
     {
         void Add(Lancamento lancamento);
         void EnviarDinheiro(int contaOrigemId, Lancamento lancamento);
-        Task<IEnumerable<Lancamento>> ListByContaCorrente(int contaCorrenteId);
+        Task<IEnumerable<Lancamento>> ListByNumeroContaCorrente(int numeroContaCorrente);
 
     }
 }

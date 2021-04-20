@@ -45,18 +45,21 @@ namespace DBankAPI.DBankInfra.Data.Repository
                 Valor = lancamento.Valor,
                 Observacao = lancamento.Observacao
             });
+
+            _context.SaveChanges();
         }
 
-        public async Task<IEnumerable<Lancamento>> ListByContaCorrente(int contaCorrenteId)
+        public async Task<IEnumerable<Lancamento>> ListByNumeroContaCorrente(int numeroContaCorrente)
         {
-            return await _context.Lancamentos.Where(x => x.ContaCorrenteId == contaCorrenteId)
+            var conta = await _context.ContasCorrentes.FirstOrDefaultAsync();
+
+            return await _context.Lancamentos.Where(x => x.ContaCorrenteId == conta.Id)
                 .OrderBy(x => x.DataHora)
                 .ToListAsync();
         }
 
         public void Dispose()
         {
-            _context.SaveChanges();
             _context.Dispose();
         }
     }

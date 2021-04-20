@@ -14,12 +14,18 @@ namespace DBankAPI.Services
         private readonly IMapper _mapper;
         private readonly ILancamentoRepository _lancamentoRepository;
         private readonly IContaCorrenteRepository _contaCorrenteRepository;
-        
+
         public ContaCorrenteService(IMapper mapper, ILancamentoRepository lancamentoRepository, IContaCorrenteRepository contaCorrenteRepository)
         {
             _mapper = mapper;
             _lancamentoRepository = lancamentoRepository;
             _contaCorrenteRepository = contaCorrenteRepository;
+        }
+
+        public bool ContaPertenceAoUsuario(string userName, int numeroContaCorrente)
+        {
+            var contaCorrente = _contaCorrenteRepository.GetByNumero(numeroContaCorrente);
+            return (contaCorrente.UserName == userName);
         }
 
         public RetornoViewModel EnviarDinheiro(LancamentoViewModel lancamentoViewModel)
@@ -51,10 +57,9 @@ namespace DBankAPI.Services
             }
         }
 
-
-        public async Task<List<ExtratoViewModel>> GetExtrato(int contaCorrenteId)
+        public async Task<List<ExtratoViewModel>> GetExtrato(int numeroContaCorrente)
         {
-            var lancamentos = await _lancamentoRepository.ListByContaCorrente(contaCorrenteId);
+            var lancamentos = await _lancamentoRepository.ListByNumeroContaCorrente(numeroContaCorrente);
             return _mapper.Map<List<ExtratoViewModel>>(lancamentos);
         }
 

@@ -8,7 +8,7 @@ namespace DBankAPI.DBankDomain.Interfaces
     public interface IContaCorrenteRepository : IDisposable
     {
         ContaCorrente GetByNumero(int numero);
-        ContaCorrente GetByEmail(string email);
+        ContaCorrente GetByUserName(string username);
 
     }
 }
