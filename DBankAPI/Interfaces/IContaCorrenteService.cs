@@ -11,6 +11,7 @@ namespace DBankAPI.Interfaces
         bool ContaPertenceAoUsuario(string userId, int numeroContaCorrente);
         RetornoViewModel EnviarDinheiro(LancamentoViewModel lancamentoViewModel);
         Task<List<ExtratoViewModel>> GetExtrato(int numeroContaCorrente);
+        Task<ContaCorrenteViewModel> GetByNumero(int numeroContaCorrente);
     }
 }
 

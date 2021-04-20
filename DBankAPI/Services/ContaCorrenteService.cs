@@ -68,6 +68,11 @@ namespace DBankAPI.Services
             GC.SuppressFinalize(this);
         }
 
+        public async Task<ContaCorrenteViewModel> GetByNumero(int numeroContaCorrente)
+        {
+            var conta = _contaCorrenteRepository.GetByNumero(numeroContaCorrente);
+            return _mapper.Map<ContaCorrenteViewModel>(conta);
 
+        }
     }
 }
