@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using DBankAPI.Entities;
+﻿using DBankAPI.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace DBankAPI.Data
+namespace DBankAPI.DBankInfra.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

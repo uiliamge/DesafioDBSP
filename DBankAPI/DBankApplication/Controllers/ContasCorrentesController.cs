@@ -51,7 +51,7 @@ namespace DBank.Controllers
             if (!User.IsInRole("Admin"))
             {
                 if (!_contaCorrenteService.ContaPertenceAoUsuario(userId, numeroContaCorrente))
-                    return BadRequest("Esta conta não pode ser acessda por este usuário");
+                    return BadRequest("Esta conta não pode ser acessada por este usuário");
             }
 
             return Ok(await _contaCorrenteService.GetExtrato(numeroContaCorrente));

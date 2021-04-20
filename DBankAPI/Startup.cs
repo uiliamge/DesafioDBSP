@@ -2,7 +2,6 @@ using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
-using DBankAPI.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -16,6 +15,7 @@ using DBankAPI.Services;
 using DBankAPI.DBankApplication.AutoMapper;
 using NetDevPack.Identity;
 using NetDevPack.Identity.Jwt;
+using DBankAPI.DBankInfra.Data;
 
 namespace DBankAPI
 {
